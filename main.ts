@@ -10,14 +10,18 @@ const LINE =
 
 // The gate needs exactly one line of UTF-8 text, 1 to 100 characters, not
 // only white space — no trailing newline, so the file is the tagline alone.
-if (
-  LINE.length < 1 ||
-  LINE.length > 100 ||
-  LINE.trim().length === 0 ||
-  LINE.includes("\n")
-) {
-  throw new Error("entry must be one line of 1-100 characters");
+function assertGate(line: string): void {
+  if (
+    line.length < 1 ||
+    line.length > 100 ||
+    line.trim().length === 0 ||
+    line.includes("\n")
+  ) {
+    throw new Error("entry must be one line of 1-100 characters");
+  }
 }
+
+assertGate(LINE);
 
 const dir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
 mkdirSync(dir, { recursive: true });
